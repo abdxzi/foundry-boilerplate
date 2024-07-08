@@ -12,6 +12,12 @@
   - [tests \*](#tests-)
     - [writing tests \*](#writing-tests-)
     - [Cheatcodes](#cheatcodes)
+  - [Deploying](#deploying)
+  - [Gas Tracking, Snapshots](#gas-tracking-snapshots)
+  - [Debugger](#debugger)
+- [Cast](#cast)
+- [Anvil](#anvil)
+- [Chisel](#chisel)
 - [Advanced Debugging](#advanced-debugging)
 
 
@@ -83,6 +89,10 @@ forge test -vvvv
 
 # watch for file changes
 forge test --watch
+
+# gas reports
+forge test --gas-report
+forge test --match-test testBurn --gas-report
 ```
 
 ### writing tests [*][6]
@@ -126,9 +136,55 @@ vm.expectRevert()
 vm.expectEmit();
 ```
 
-# Advanced Debugging
-[No error on Revert](https://youtu.be/mmzkPz71QJs?t=7276)
+> [Traces][7] \
+> [Fork Testing][8]
 
+## Deploying
+```bash
+forge create 
+    --rpc-url <your_rpc_url> 
+    --constructor-args "ForgeUSD" "FUSD" 18 1000000000000000000000 
+    --private-key <your_private_key> 
+    --etherscan-api-key <your_etherscan_api_key> 
+    --verify 
+    src/MyToken.sol:MyToken
+```
+
+## Gas Tracking, Snapshots
+
+[Snapshots comparison][9]
+
+## Debugger
+
+[Debugger][10]
+
+```bash
+forge debug
+forge test --debug "testSomething()"
+forge debug --debug src/SomeContract.sol --sig "myFunc(uint256,string)" 123 "hello"
+```
+
+# Cast
+Cast is Foundry’s command-line tool for performing Ethereum RPC calls.
+
+`cast <subcommand>`
+
+```bash
+cast call 0x6b175474e89094c44da98b954eedeac495271d0f "totalSupply()(uint256)" --rpc-url https://eth-mainnet.alchemyapi.io/v2/Lc7oIGYeL_QvInzI0Wiu_pOZZDEKBrdf
+3203530569593310192180420120 [3.203e27]
+```
+
+# Anvil
+[Anvil][11] is a local testnet node shipped with Foundry.
+
+```bash
+anvil -a
+anvil --hardfork
+anvil  -p
+```
+
+# Chisel
+[Chisel][12] is an advanced Solidity REPL shipped with Foundry.
 
 [1]: https://book.getfoundry.sh/projects/creating-a-new-project
 [2]: https://book.getfoundry.sh/projects/clone-a-verified-contract
@@ -136,3 +192,12 @@ vm.expectEmit();
 [4]: https://book.getfoundry.sh/projects/project-layout
 [5]: https://book.getfoundry.sh/forge/tests
 [6]: https://book.getfoundry.sh/forge/writing-tests
+[7]: https://book.getfoundry.sh/forge/traces
+[8]: https://book.getfoundry.sh/forge/fork-testing
+[9]: https://book.getfoundry.sh/forge/gas-snapshots
+[10]: https://book.getfoundry.sh/forge/debugger
+[11]: https://book.getfoundry.sh/reference/anvil/
+[12]: https://book.getfoundry.sh/reference/chisel/
+
+# Advanced Debugging
+[No error on Revert](https://youtu.be/mmzkPz71QJs?t=7276)
