@@ -16,6 +16,8 @@
   - [Gas Tracking, Snapshots](#gas-tracking-snapshots)
   - [Debugger](#debugger)
 - [Cast](#cast)
+    - [Read from contract:](#read-from-contract)
+    - [Send transaction to contract:](#send-transaction-to-contract)
 - [Anvil](#anvil)
 - [Chisel](#chisel)
 - [Advanced Debugging](#advanced-debugging)
@@ -140,6 +142,7 @@ vm.expectEmit();
 > [Fork Testing][8]
 
 ## Deploying
+1. ~~Direct on commandline~~
 ```bash
 forge create 
     --rpc-url <your_rpc_url> 
@@ -149,6 +152,32 @@ forge create
     --verify 
     src/MyToken.sol:MyToken
 ```
+
+2. ~~Private key from .env~~
+```bash
+source .env
+forge create 
+    --rpc-url $RPC_URL
+    --constructor-args "ForgeUSD" "FUSD" 18 1000000000000000000000 
+    --private-key $PRIVATE_KEY
+    --etherscan-api-key $ETHERSCAN_API_KEY
+    --verify 
+    src/MyToken.sol:MyToken
+```
+
+3. Encrypted keystore file [.][13]
+- Import private key to [keystore](https://book.getfoundry.sh/reference/cast/cast-wallet-import) 
+
+  ```bash
+  cast wallet import defaultKey --interactive
+  forge create 
+    --rpc-url $RPC_URL
+    --constructor-args "ForgeUSD" "FUSD" 18 1000000000000000000000 
+    --account defaultKey
+    --sender 0x445...45fd
+    src/MyToken.sol:MyToken
+  ```
+- Enter password
 
 ## Gas Tracking, Snapshots
 
@@ -167,11 +196,16 @@ forge debug --debug src/SomeContract.sol --sig "myFunc(uint256,string)" 123 "hel
 # Cast
 Cast is Foundry’s command-line tool for performing Ethereum RPC calls.
 
-`cast <subcommand>`
+`cast --help`
 
+### Read from contract: 
 ```bash
-cast call 0x6b175474e89094c44da98b954eedeac495271d0f "totalSupply()(uint256)" --rpc-url https://eth-mainnet.alchemyapi.io/v2/Lc7oIGYeL_QvInzI0Wiu_pOZZDEKBrdf
-3203530569593310192180420120 [3.203e27]
+cast call 0x6b175474e89094c44da98b954eedeac495271d0f "totalSupply(uint256)" --rpc-url $RPC_URL
+```
+
+### Send transaction to contract: 
+```bash
+cast send  0x82...df5f "store(uint256)" 123 --rpc-url $RPC_URL --private_key $PRIVATE_KEY
 ```
 
 # Anvil
@@ -186,6 +220,9 @@ anvil  -p
 # Chisel
 [Chisel][12] is an advanced Solidity REPL shipped with Foundry.
 
+# Advanced Debugging
+[No error on Revert](https://youtu.be/mmzkPz71QJs?t=7276)
+
 [1]: https://book.getfoundry.sh/projects/creating-a-new-project
 [2]: https://book.getfoundry.sh/projects/clone-a-verified-contract
 [3]: https://book.getfoundry.sh/projects/dependencies#dependencies
@@ -198,6 +235,4 @@ anvil  -p
 [10]: https://book.getfoundry.sh/forge/debugger
 [11]: https://book.getfoundry.sh/reference/anvil/
 [12]: https://book.getfoundry.sh/reference/chisel/
-
-# Advanced Debugging
-[No error on Revert](https://youtu.be/mmzkPz71QJs?t=7276)
+[13]: https://book.getfoundry.sh/reference/cast/wallet-commands
