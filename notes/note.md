@@ -18,9 +18,11 @@
 - [Cast](#cast)
     - [Read from contract:](#read-from-contract)
     - [Send transaction to contract:](#send-transaction-to-contract)
+    - [Read storage slot:](#read-storage-slot)
 - [Anvil](#anvil)
 - [Chisel](#chisel)
 - [Advanced Debugging](#advanced-debugging)
+- [Automate Foundry actions using `make` file](#automate-foundry-actions-using-make-file)
 
 
 ## Project Basics
@@ -183,6 +185,11 @@ forge create
 
 [Snapshots comparison][9]
 
+```bash
+forge snapshot # creates .gas-snapshot file with all tests
+forge snapshot -mt SpecificTest
+```
+
 ## Debugger
 
 [Debugger][10]
@@ -206,6 +213,11 @@ cast call 0x6b175474e89094c44da98b954eedeac495271d0f "totalSupply(uint256)" --rp
 ### Send transaction to contract: 
 ```bash
 cast send  0x82...df5f "store(uint256)" 123 --rpc-url $RPC_URL --private_key $PRIVATE_KEY
+```
+
+### Read storage slot: 
+```bash
+cast storage  0x82...df5f 2
 ```
 
 # Anvil
@@ -236,3 +248,12 @@ anvil  -p
 [11]: https://book.getfoundry.sh/reference/anvil/
 [12]: https://book.getfoundry.sh/reference/chisel/
 [13]: https://book.getfoundry.sh/reference/cast/wallet-commands
+
+
+# Automate Foundry actions using `make` file
+
+[see](https://updraft.cyfrin.io/courses/foundry/foundry-fund-me/makefile)
+
+[look current makefile](../Makefile)
+
+[Reference](https://github.com/Cyfrin/foundry-fund-me-f23/blob/main/Makefile)

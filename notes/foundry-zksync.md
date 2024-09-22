@@ -66,3 +66,10 @@ After deploy:
 
 
 > The EVM and ZK Sync ecosystems support multiple transaction types to accommodate various Ethereum Improvement Proposals (EIPs). Initially, Ethereum had only one transaction type (`0x0` legacy), but as the ecosystem evolved, multiple types were introduced through various EIPs. Subsequent types include type 1, which introduces an _access list_ of addresses and keys, and type 2, also known as [EIP 1559](https://eips.ethereum.org/EIPS/eip-1559) transactions.
+
+
+# zkSync DevOps
+
+zkSync and evm have diffrences [read here](https://docs.zksync.io/build/developer-reference/ethereum-differences/evm-instructions)
+
+[See](https://updraft.cyfrin.io/courses/foundry/foundry-fund-me/zksync-devops)
