@@ -39,7 +39,7 @@ contract DeployFundMe is Script {
 
 > When using `vm.startBroadcast()` msg.sender == deployer
 
-```js
+```diff
 // SPDX-License_identifier: MIT
 
 pragma solidity ^0.8.18;
@@ -48,8 +48,8 @@ import {DeployFundMe} from "../script/DeployFundMe.s.sol";
 
 contract FundMeTest is Test {
     function setUp() external {
-        DeployFundMe deplotFundMe = new DeployFundMe();
-        deplotFundMe.run();
++        DeployFundMe deplotFundMe = new DeployFundMe();
++        deplotFundMe.run();
     }
 }
 
@@ -93,23 +93,26 @@ contract HelperConfig {
 
 ```
 Deploy Script:
-```js
-// SPDX-License_identifier: MIT
+```diff
+  // SPDX-License_identifier: MIT
 
-pragma solidity ^0.8.18;
+  pragma solidity ^0.8.18;
 
-import {Script} from "forge-std/Script.sol";
-import {FundMe} from "../src/FundMe.sol";
-import {HelperConfig} from "./HelperConfig.s.sol"
+  import {Script} from "forge-std/Script.sol";
+  import {FundMe} from "../src/FundMe.sol";
++ import {HelperConfig} from "./HelperConfig.s.sol"
 
-contract DeployFundMe is Script {
-    function run() external returns(FundMe){
+  contract DeployFundMe is Script {
+      function run() external returns(FundMe){
 
++         HelperConfig helperConfig = new HelperConfig();
++         address pricefeed = helperConfig.activeNetworkConfig();
 
-        vm.startBroadcast();
-        FundMe fundMe = new FundMe("sehbfiewf35433jnj");
-        vm.stopBroadcast();
-        return fundMe;
-    }  
-}
+          vm.startBroadcast();
+-          FundMe fundMe = new FundMe("sehbfiewf35433jnj");
++          FundMe fundMe = new FundMe(pricefeed);
+          vm.stopBroadcast();
+          return fundMe;
+      }  
+  }
 ```
