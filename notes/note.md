@@ -19,6 +19,8 @@
     - [Read from contract:](#read-from-contract)
     - [Send transaction to contract:](#send-transaction-to-contract)
     - [Read storage slot:](#read-storage-slot)
+    - [Find Funnctions signatures](#find-funnctions-signatures)
+    - [Calldata decode](#calldata-decode)
 - [Anvil](#anvil)
 - [Chisel](#chisel)
 - [Advanced Debugging](#advanced-debugging)
@@ -220,6 +222,16 @@ cast send  0x82...df5f "store(uint256)" 123 --rpc-url $RPC_URL --private_key $PR
 cast storage  0x82...df5f 2
 ```
 
+### Find Funnctions signatures
+```bash
+cast sig "fund()" 
+```
+
+### Calldata decode
+```bash
+cast --calldata-decode "transferFrom(address,address,uint256)" 0x7687...82ad
+```
+
 # Anvil
 [Anvil][11] is a local testnet node shipped with Foundry.
 
@@ -235,6 +247,28 @@ anvil  -p
 # Advanced Debugging
 [No error on Revert](https://youtu.be/mmzkPz71QJs?t=7276)
 
+# Automate Foundry actions using `make` file
+
+[see](https://updraft.cyfrin.io/courses/foundry/foundry-fund-me/makefile)
+
+[look current makefile](../Makefile)
+
+[Reference](https://github.com/Cyfrin/foundry-fund-me-f23/blob/main/Makefile)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 [1]: https://book.getfoundry.sh/projects/creating-a-new-project
 [2]: https://book.getfoundry.sh/projects/clone-a-verified-contract
 [3]: https://book.getfoundry.sh/projects/dependencies#dependencies
@@ -248,12 +282,3 @@ anvil  -p
 [11]: https://book.getfoundry.sh/reference/anvil/
 [12]: https://book.getfoundry.sh/reference/chisel/
 [13]: https://book.getfoundry.sh/reference/cast/wallet-commands
-
-
-# Automate Foundry actions using `make` file
-
-[see](https://updraft.cyfrin.io/courses/foundry/foundry-fund-me/makefile)
-
-[look current makefile](../Makefile)
-
-[Reference](https://github.com/Cyfrin/foundry-fund-me-f23/blob/main/Makefile)
