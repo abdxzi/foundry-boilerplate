@@ -180,6 +180,13 @@ forge create
     --account defaultKey
     --sender 0x445...45fd
     src/MyToken.sol:MyToken
+
+  # or
+
+  forge script ./script/deploy.s.sol 
+    --rpc-url http://127.0.0.1:8545 
+    --account defaultKey 
+    --broadcast
   ```
 - Enter password
 
@@ -215,6 +222,13 @@ cast call 0x6b175474e89094c44da98b954eedeac495271d0f "totalSupply(uint256)" --rp
 ### Send transaction to contract: 
 ```bash
 cast send  0x82...df5f "store(uint256)" 123 --rpc-url $RPC_URL --private_key $PRIVATE_KEY
+```
+
+#### Send ETH
+```sh
+cast send [addres] --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --value 2000000000000000000 --rpc-url http://127.0.0.1:8545
+
+cast balance [address] --rpc-url http://127.0.0.1:8545
 ```
 
 ### Read storage slot: 
