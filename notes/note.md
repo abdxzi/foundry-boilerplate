@@ -170,7 +170,7 @@ forge create
 ```
 
 3. Encrypted keystore file [.][13]
-- Import private key to [keystore](https://book.getfoundry.sh/reference/cast/cast-wallet-import) 
+- Import private key to [keystore](./keystore.md) 
 
   ```bash
   cast wallet import defaultKey --interactive
